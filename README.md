@@ -30,7 +30,7 @@ X_SS = (49,04+1,125*T[4] - T[8])/(134,65+0,47*T[4])*100 "%"
 m_dot_r= m_dot_[9]
 "PAPER (Ebrahimi, 2015): Point 9. Knowing the LiBr concentration in the strong solution from step 2 and the temperature of absorber, the density of strong solution exiting the absorber (state 1) is calculated using the following equation [20]"
 "rho = 1145,36 + 470,84*X + 1374,79*X^2 - (0,333393 + 0,571749*X)*T"
- 
+
 "PAPER (Ebrahimi, 2015): Point 11. In order to find the temperature values of the strong solution entering the generator (state 3) and weak solution entering the absorber, the governing energy equation for the solution heat exchanger is solved. For this purpose, the heat capacity of strong and weak solution streams at the inlet of solution heat exchanger (states 2, 4) are calculated using [23]."
 "cp = 0,0976*X^2 - 37,512*X + 3825,4"
 cp_2 = 0,0976*x_m[2]^2 - 37,512*x_m[2] + 3825,4
@@ -42,19 +42,19 @@ cp_6 = 0,0976*x_m[6]^2 - 37,512*x_m[6] + 3825,4
 C_2 = m_dot_[2]*cp_2
 C_4 = m_dot_[4]*cp_4
 C_1 = m_dot_[1]*cp_1
- 
+
 "PAPER (Kaita, 2001) Cálculo da Entropia da Solução água-Br-Li"
 "B_i0 "
 B_00 = 5,127558E-1
 B_10 = 1,226780E-2
 B_20 = -1,364895E-5
 B_30 = 1,021501E-8
- 
-"B_i1 "
+
+"B_i1"
 B_01 = -1,393954E-2
 B_11 = -9,156820E-5
 B_21 = 1,068904E-7
- 
+
 "B_i2 "
 B_02= 2,924145E-5
 B_12 = 1,820453E-8
@@ -67,7 +67,7 @@ B_23 = 1,529784E-11
  
 "Equação Entropia solução água Br-Li S(kJ/kg-K), X 40-65 (wt. %), 40-210 (°C)"
 "S = SOMATÓRIO B_ij*X^j*Tî"
- 
+
 "3.1.4. Expansion of the model for exergy analysis and validation"
 "T0 = 25°C and p0 = 101.3 kPa para calcular s[0] e h[0]"
 T[0] = T_amb
@@ -86,16 +86,16 @@ b_dot_[7] = (h[7]-h[0] - T0_K*(s[7]-s[0]))
 b_dot_[8] = (h[8]-h[0] - T0_K*(s[8]-s[0]))
 b_dot_[9] = (h[9]-h[0] - T0_K*(s[9]-s[0]))
 b_dot_[10] = (h[10]-h[0] - T0_K*(s[10]-s[0]))
- 
+
 "Exergia destruída (B_dot_dest)"
 "DELTA_B = SOMA_in*(m_dot_[i]*b[i]) - SOMA_out(m_dot_[i]*b[i]) + q_dot*(1 - T[0]/T)"
- 
+
 B_dot_d_COND_1 = (b_dot_[7]*m_dot_[7] - b_dot_[8]*m_dot_[8]) + q_dot_COND*(1- (T0_K/((30,38+33)/2+273,15)[K]))
 B_dot_d_EVAP_1 = ((b_dot_[8]*m_dot_[8]) - (b_dot_[10]*m_dot_[10])) + q_dot_EVAP*(1- (T0_K/(20+273,15)[K]))
 B_dot_d_ABS_1 = ((b_dot_[6]*m_dot_[6] + b_dot_[10]*m_dot_[10]) - b_dot_[1]*m_dot_[1]) + q_dot_ABS*(1- (T0_K/(28,7+273,15)[K]))
 B_dot_d_GER_1 = ((b_dot_[3]*m_dot_[3]) - (b_dot_[4]*m_dot_[4] +b_dot_[7]*m_dot_[7])) + q_dot_GER*(1- (T0_K/(100+273,15)[K]))
 B_dot_d_TC_1 = (b_dot_[2]*m_dot_[2] + b_dot_[4]*m_dot_[4]) - (b_dot_[5]*m_dot_[5] + b_dot_[3]*m_dot_[3])
-  
+
 "Solução: Definição dos pontos"
 "Ponto (1): entrada da bomba (B). Liq. saturado" 
 P[1] = p_EVAP "Pressão de saturação da água a 10°C"
@@ -105,27 +105,26 @@ x_v[1] = 0 "Fração mássica de vapor"
 rho_WS = 1145,36 + 470,84*x_m[1]/100 + 1374,79*(x_m[1]/100)^2 - (0,333393 + 0,571749*(x_m[1]/100))*T_a
 h[1] = (3,462023 -0,02679895*x_m[1])*T[1] + 0,5*(0,0013499-0,00000655*x_m[1])*T[1]^2 + (162,81 -6,0418*x_m[1] + 0,0045348*x_m[1]^2 + 0,0012053*x_m[1]^3) "obtido pela equação fornecida no paper (ponto 6)" 
 s[1] = (B_00 + B_10*T[1] + B_20*T[1]^2 + B_30*T[1]^3) + (B_01*x_m[1] + B_11*x_m[1]*T[1] + B_21*x_m[1]*T[1]^2) + (B_02*x_m[1]^2 + B_12*x_m[1]^2*T[1] + B_22*x_m[1]^2*T[1]^2) + (B_03*x_m[1]^3 + B_13*x_m[1]^3*T[1] + B_23*x_m[1]^3*T[1]^2)
- 
+
 "Ponto (2): saída da bomba (B). Liq. saturado."
 P[2] = p_COND "Pressão de saturação da água a 50°C"
 T[2] = 35,51[C]
 x_m[2] = X_WS "kg LiBr/kg solution, obtido pela equação apresentada no paper"
 x_v[2] = 0
- 
+
 "Fazendo um VC na BOMBA"
 PV= ((P[2]-P[1])*1000/rho_WS)*convert(m2/s2; J/kg)
 m_dot_[2] = m_dot_[1]
 s[2] = (B_00 + B_10*T[2] + B_20*T[2]^2 + B_30*T[2]^3) + (B_01*x_m[2] + B_11*x_m[2]*T[2] + B_21*x_m[2]*T[2]^2) + (B_02*x_m[2]^2 + B_12*x_m[2]^2*T[2] + B_22*x_m[2]^2*T[2]^2) + (B_03*x_m[2]^3 + B_13*x_m[2]^3*T[1] + B_23*x_m[2]^3*T[2]^2)
- 
+
 "Ponto (3): entrada no GERADOR.Liq. saturado. Estado termodinâmico determinado." 
 P[3] = p_COND "Pressão de saturação da água a 50°C"
-T[3] = 64,32 [C] "(Rubio-Maya et al, 2012)"
-x_m[3] =  X_WS "kg LiBr/kg solution, obtido pela equação apresentada no paper"
+T[3] = 64,32 [C] "(Rubio-Maya et al, 2012)"x_m[3] =  X_WS "kg LiBr/kg solution, obtido pela equação apresentada no paper"
 x_v[3] = 0
 h[3] = (3,462023 -0,02679895*x_m[3])*T[3] + 0,5*(0,0013499-0,00000655*x_m[3])*T[3]^2 + (162,81 -6,0418*x_m[3] + 0,0045348*x_m[3]^2 + 0,0012053*x_m[3]^3)
 s[3] = (B_00 + B_10*T[3] + B_20*T[3]^2 + B_30*T[3]^3) + (B_01*x_m[3] + B_11*x_m[3]*T[3] + B_21*x_m[3]*T[3]^2) + (B_02*x_m[3]^2 + B_12*x_m[3]^2*T[3] + B_22*x_m[3]^2*T[3]^2) + (B_03*x_m[3]^3 + B_13*x_m[3]^3*T[3] + B_23*x_m[3]^3*T[3]^2)
 m_dot_[3] = m_dot_[1]
- 
+
 "Ponto (4): Saída do gerador (GER). Liq. saturado"
 P[4] = p_COND "Pressão de saturação da água a 50°C"
 T[4] = 84,86[C] "Considerando que a solução forte está saindo na temperatura do GERADOR"
@@ -134,7 +133,7 @@ x_v[4] = 0
 h[4] = (3,462023 -0,02679895*x_m[4])*T[4] + 0,5*(0,0013499-0,00000655*x_m[4])*T[4]^2 + (162,81 -6,0418*x_m[4] + 0,0045348*x_m[4]^2 + 0,0012053*x_m[4]^3)"obtido pela equação fornecida no paper (ponto 6)"
 s[4] = (B_00 + B_10*T[4] + B_20*T[4]^2 + B_30*T[4]^3) + (B_01*x_m[4] + B_11*x_m[4]*T[4] + B_21*x_m[4]*T[4]^2) + (B_02*x_m[4]^2 + B_12*x_m[4]^2*T[4] + B_22*x_m[4]^2*T[4]^2) + (B_03*x_m[4]^3 + B_13*x_m[4]^3*T[4] + B_23*x_m[4]^3*T[4]^2)
 m_dot_[4] = m_dot_[6]
- 
+
 "Ponto (5): Saída do TC, antes da vál. expansão"
 P[5] = p_COND "Pressão de saturação da água a 50°C"
 "Como C_4 < C_2, T[5] pode ser calculado por:"
@@ -146,7 +145,7 @@ m_dot_[2]*h[2] + m_dot_[4]*h[4] = m_dot_[3]*h[3] + m_dot_[5]*h[5]
 h[5] = (3,462023 -0,02679895*x_m[5])*T[5] + 0,5*(0,0013499-0,00000655*x_m[5])*T[5]^2 + (162,81 -6,0418*x_m[5] + 0,0045348*x_m[5]^2 + 0,0012053*x_m[5]^3)
 s[5] = (B_00 + B_10*T[5] + B_20*T[5]^2 + B_30*T[5]^3) + (B_01*x_m[5] + B_11*x_m[5]*T[5] + B_21*x_m[5]*T[5]^2) + (B_02*x_m[5]^2 + B_12*x_m[5]^2*T[5] + B_22*x_m[5]^2*T[5]^2) + (B_03*x_m[5]^3 + B_13*x_m[5]^3*T[5] + B_23*x_m[5]^3*T[5]^2)
 m_dot_[5] = m_dot_[6]
- 
+
 "Ponto (6): Saída da vál. expansão, antes de entrar no Absorvedor (ABS)"
 P[6] = p_EVAP "Pressão de saturação da água a 10°C"
 T[6] = T[5]
@@ -154,12 +153,12 @@ x_m[6] = X_SS "kg LiBr/kg solution, obtido pela equação apresentada no paper"
 x_v[6] = 0
 h[6] = h[5]
 s[6] = (B_00 + B_10*T[6] + B_20*T[6]^2 + B_30*T[6]^3) + (B_01*x_m[6] + B_11*x_m[6]*T[6] + B_21*x_m[6]*T[6]^2) + (B_02*x_m[6]^2 + B_12*x_m[6]^2*T[6] + B_22*x_m[6]^2*T[6]^2) + (B_03*x_m[6]^3 + B_13*x_m[6]^3*T[6] + B_23*x_m[6]^3*T[6]^2)
- 
+
 "Fazendo um VC no ABSORVEDOR"
- 
+
 m_dot_[1] = m_dot_r*((x_m[6])/(x_m[6]-x_m[1]))
 m_dot_[6] = m_dot_r*((x_m[1])/(x_m[6]-x_m[1]))
- 
+
 "Ponto (7): Saída do GERADOR (GER), antes de entrar no Condensador (COND)"
 P[7] = p_COND "Pressão de saturação da água a 50°C"
 T[7] = 84,86[C] "Considerando que o vapor está saindo na temperatura do GERADOR"
@@ -168,7 +167,7 @@ x_v[7] = 1,0 "vapor saturado"
 h[7] = 104,753 + (2398,19904 + 1,925928*T[7] - 0,1800324*T[8]) "2659,2 Obtido pela equação fornecida por Lansing [25]. A eq. h_v_teste = 2501 + 1,86*T[7] também fornece valores próximos"
 s[7] = entropy(Steam; P=P[7]; T =T[7])
 m_dot_[7] = m_dot_[9]
- 
+
 "Ponto (8): Água líquido saturado. Saída do Condensador (COND), antes da válvula de expansão. Tabela A-4 Cengel"
 P[8] = p_COND "Pressão de saturação da água a 50°C"
 T[8] = 39,85[C]
@@ -177,7 +176,7 @@ x_v[8] = 0
 h[8] = 104,753 + (4,1868*T[8] - 104,67) "h[8] = enthalpy(Water; P=P[8]; x =x_v[8])"
 s[8] = 0,00513126 + 0,0149286*T[8] - 0,0000192598*T[8]^2 "s[8] = entropy(Water; P=P[8]; x =x_v[8])"
 m_dot_[8] = m_dot_[9]
- 
+
 "Ponto (9): Saída da vál. expansão, antes do Evaporador(EVAP)"
 P[9] = p_EVAP "Pressão de saturação da água a 10°C"
 T[9] = T[8] "temperature(Steam; P=P[9]; h=h[9])"
@@ -186,7 +185,7 @@ h[9] = h[8] "Expansão Isoentalpica na válvula"
 s[9] = entropy(Steam; P=P[9]; h = h[9])
 "Fazendo um VC no EVAPORADOR"
 m_dot_[9] = q_dot_EVAP/(h[10]-h[9]) 
- 
+
 "Ponto (10): Vapor de água na Saída do Evaporador(EVAP)"
 P[10] = p_EVAP "Pressão de saturação da água a 10°C"
 T[10] = 8,67[C]
@@ -196,7 +195,7 @@ h[10] = 104,753 + (2398,19904 + 1,7458956*T[10]) "2518,09" "enthalpy(Steam; P=P[
 s[10] = 9,13788 - 0,0247901*T[10] - 0,0000705193*T[10]^2
 "s[10] = entropy(Steam; P=P[10];x=x_v[10])"
 m_dot_[10] = m_dot_[9]
- 
+
 "Solução:"
 "Hipóteses: reg. permanente"
 "Desprezando a perda de carga no sistema"
@@ -205,39 +204,36 @@ m_dot_[10] = m_dot_[9]
 W_dot_BOMBA = m_dot_[1]*(PV)
 Eta_BOMBA = 0,80
 W_dot_ELEC_BOMBA = W_dot_BOMBA/Eta_BOMBA
- 
+
 "COP"
-q_dot_GER =  (m_dot_r*h[7] + m_dot_[4]*h[4]) - m_dot_[3]*h[3]
-COP= q_dot_EVAP/(q_dot_GER+W_dot_BOMBA)
- 
+q_dot_GER =  (m_dot_r*h[7] + m_dot_[4]*h[4]) - m_dot_[3]*h[3]COP= q_dot_EVAP/(q_dot_GER+W_dot_BOMBA)
 "Supondo que a fonte de calor que entra no GERADOR é proveniente de um rejeito térmico, vapor industrial que não foi utilizado, água quente de resfriamento em data centers, etc, podemos obter um COP_AR_ELEC dividindo a carga de refrigeração´pela potência elétrica da bomba."
 COP_AR_ELEC = q_dot_EVAP/(W_dot_ELEC_BOMBA)
 "Calor rejeitado no ABS"
 -q_dot_ABS =  ((m_dot_r*h[10] + m_dot_[6]*h[6]) - m_dot_[1]*h[1])
- "Calor rejeitado no COND"
+"Calor rejeitado no COND"
 -q_dot_COND =  m_dot_r*(h[7]-h[8])
- 
+
 "COP_Carnot"
 Eta_Carnot = (1 - (converttemp(C; K;25))/converttemp(C;K;84,8))
 COP_Carnot = (1/((converttemp(C; K; 25)/converttemp(C; K; 8,6)) -1))
 COP_abs_Carnot = Eta_Carnot*COP_Carnot
 "Eficiência de refrigeração"
 Eta_ref = COP/COP_abs_Carnot
- 
+
 "Comparação dos valores encontrados de exergia destruida no trabalho com :B_dot_dest = S_dot_ger*T0_K"
- 
+
 S_dot_ger_COND = (m_dot_[8]*s[8] - m_dot_[7]*s[7]) - q_dot_COND/((30,38+33)[K]/2+273,15[K])
 S_dot_ger_EVAP = (m_dot_[10]*s[10] - m_dot_[8]*s[8]) - q_dot_EVAP/(20+273,15)[K]
 S_dot_ger_ABS = (m_dot_[1]*s[1] - (m_dot_[6]*s[6] + m_dot_[10]*s[10])) - q_dot_ABS/(28,7+273,15)[K]
 S_dot_ger_GER = ((m_dot_[7]*s[7] + m_dot_[4]*s[4]) - m_dot_[3]*s[3]) - q_dot_GER/(100+273,15)[K]
 S_dot_ger_TC = ((m_dot_[3]*s[3] + m_dot_[5]*s[5]) - (m_dot_[2]*s[2] + m_dot_[4]*s[4]))
- 
+
 B_dot_d_COND_2 = S_dot_ger_COND*T0_K
 B_dot_d_EVAP_2 = S_dot_ger_EVAP*T0_K
 B_dot_d_ABS_2 = S_dot_ger_ABS*T0_K
 B_dot_d_GER_2 = S_dot_ger_GER*T0_K
 B_dot_d_TC_2 = S_dot_ger_TC*T0_K
- 
 B_dot_d_TOTAL = B_dot_d_COND_2 + B_dot_d_EVAP_2 + B_dot_d_ABS_2 + B_dot_d_GER_2 + B_dot_d_TC_2
  
 "Eficiência Exergética"
