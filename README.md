@@ -12,9 +12,9 @@ Este código foi desenvolvido no Engineering Equation Solver (EES) para realizar
 
 ## Como Usar:
 
-1. Abra o arquivo `Análise_Energética_Exergética_Ciclo_Absorção.ees` no EES. Ou, copie e cole no EES o código disponível na aba "Code" aqui no Github.
+1. Abra o arquivo `EES_Paper_AR_H2O-Br-Li_final.ees` no EES. Ou, copie e cole no EES o código disponível na aba "Code" aqui no Github.
 
-2. Para maiores informações verifique o pdf anexo `Seminário_PME5202_2023_Paper_Pedro Celestino_final.pdf` está presente e contém os dados de entrada corretos.
+2. Para maiores informações verifique o pdf anexo `Seminário_PME5202_2023_Paper_Pedro Celestino_final.pdf` que contém os detalhes do equacionamento utilizado e os dados de entrada corretos.
 
 3. Execute o código no EES.
 
